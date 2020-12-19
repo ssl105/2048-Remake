@@ -26,6 +26,28 @@ import java.io.*;
 
 
 /**
+ * classname: State
+ * Represents a simplified version of the board
+ */
+public class State{
+    private int [][] grid;
+    private int score;
+
+    public State(int[][] grid, int score) {
+        this.grid = grid;
+        this.score = score;
+    }
+
+    public int [][] getGrid() {
+        return this.grid;
+    }
+
+    public int getScore() {
+        return this.score;
+    }
+}
+
+/**
  * classname: Board
  * the purpose of this class is to create a board for the game of 2048.
  * this board has a random generator that can generate either 2 or 4 at a 
@@ -45,6 +67,15 @@ public class Board {
     //Size
     private int score;     // the current score, incremented as tiles merge 
 
+
+    // Constructs a board based on a state 
+    public Board(State state) {
+        this.random = random;
+        this.grid = state.getGrid();
+        this.score = state.getScore();
+        GRID_SIZE = this.grid[0].length;
+
+    }
 
     // Constructs a fresh board with random tiles
     public Board(Random random, int boardSize) {
@@ -561,6 +592,11 @@ public class Board {
     // Return the score
     public int getScore() {
         return score;
+    }
+
+    // Return a simplfied version the 2048 board
+    public State getState() {
+        return State(getGrid(), getState());
     }
 
     //@Override

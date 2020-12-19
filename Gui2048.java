@@ -45,6 +45,7 @@ public class Gui2048 extends Application
     private int gridSize;  //size of the grid
     private StackPane gameOver; //pane for when the game is over
     private boolean gameIsOver; //boolean indicating if game is over
+    private boolean autoSolve; //boolean indicating if auto solver is on
 
 
     @Override
@@ -104,6 +105,11 @@ public class Gui2048 extends Application
         
         //take in keys for controls
         scene.setOnKeyPressed(new myKeyHandler());
+
+        //handle ai
+        if (autoSolve) {
+            
+        }
 
     }
 
@@ -262,6 +268,16 @@ public class Gui2048 extends Application
                 return;
             } 
 
+            // only handle enter key when auto solve is on
+            if (this.autoSolve) {
+                if (e.getCode() == KeyCode.ENTER) {
+                    this.autoSolve = false;
+                }
+
+                return;
+            }
+
+
             //handling arrow keys and save board and checking game over
             //after every valid move. do nothing if move is invalid
             if (e.getCode() == KeyCode.UP) {
@@ -357,6 +373,9 @@ public class Gui2048 extends Application
                 } catch(IOException b) {
                     System.out.println("saveBoard threw an Exception");
                 } 
+            }
+            else if (e.getCode() == KeyCode.ENTER) {
+                this.autoSolve = true;
             }
             
         }
