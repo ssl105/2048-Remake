@@ -50,7 +50,11 @@ public class Board {
     // Constructs a board based on a state 
     public Board(Random random, Pair<int[][], Integer> state) {
         this.random = random;
-        this.grid = state.getKey().clone();
+        this.grid = new int[state.getKey().length][];
+        for (int i = 0; i < state.getKey().length; i++) {
+            this.grid[i] = state.getKey()[i].clone();
+        }
+
         this.score = state.getValue();
         GRID_SIZE = this.grid[0].length;
 

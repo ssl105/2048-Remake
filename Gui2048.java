@@ -290,7 +290,6 @@ public class Gui2048 extends Application
             } 
             else if (e.getCode() == KeyCode.RIGHT) {
                 if (Gui2048.this.board.move(Direction.RIGHT)) {
-                    System.out.println(Gui2048.this.board.getState().getValue());
                     //updating board and score and indicate the move
                     Gui2048.this.board.addRandomTile();
                     System.out.println("Moving Right");
@@ -333,7 +332,6 @@ public class Gui2048 extends Application
             }
             else if (e.getCode() == KeyCode.DOWN) {
                 if (Gui2048.this.board.move(Direction.DOWN)) {
-                    System.out.println(Gui2048.this.board.getState().getValue());
                     //updating board and score and indicate the move
                     Gui2048.this.board.addRandomTile();
                     System.out.println("Moving Down");
