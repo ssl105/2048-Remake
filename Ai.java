@@ -1,27 +1,6 @@
 import java.util.*;
 import javafx.util.Pair;
 
-// node to build sub tree 
-public class TreeNode {
-    Pair<int [][], Integer> state;
-    int playerType;
-    ArrayList<Pair<Direction, TreeNode>> children;
-
-    public TreeNode(Pair<int[][], int> state, int playerType) {
-        this.state = Pair.with(state.getKey(), state.getValue());
-        this.playerType = playerType;
-    }
-
-    boolean isTerminal() {
-        if (children.size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-}
-
 // ai agent to find next best move
 public class Ai {
     public final int MAX_PLAYER = 0;
@@ -34,13 +13,13 @@ public class Ai {
 
     // intialize ai object
     public Ai(Pair<int [][], Integer> rootState, int searchDepth) {
-        this.root = new Node(rootState, MAX_PLAYER);
+        this.root = new TreeNode(rootState, MAX_PLAYER);
         this.searchDepth = searchDepth;
         this.board = new Board(new Random(), rootState);
     }
 
     // recursive function to build game tree
-    public buildTree(TreeNode node, int depth) {
+    public void buildTree(TreeNode node, int depth) {
         if (node == null) {
             node = this.root;
         }
@@ -78,7 +57,7 @@ public class Ai {
             
             //add child nodes to chance player
             for (int i = 0; i < tiles.size(); i++ ) {
-                tile = tiles.get(i);
+                Pair<Integer, Integer> tile = tiles.get(i);
                 this.board.addTile(tile.getKey(), tile.getValue(), 2);
                 TreeNode curr = new TreeNode(board.getState(), MAX_PLAYER);
                 node.children.add(new Pair<Direction, TreeNode> (null, curr));
@@ -103,9 +82,8 @@ public class Ai {
 
         // terminal node
         if (node.isTerminal()) {
-            return new Pair<Direction, Float> (null, node.state.getValue());
+            return new Pair<Direction, Float> (null, (float) node.state.getValue());
         }
-
         // max player
         else if (node.playerType == MAX_PLAYER) {
             float value = Float.MIN_VALUE; 
@@ -126,7 +104,6 @@ public class Ai {
 
 
         }
-
         // chance player
         else if (node.playerType == CHANCE_PLAYER) {
             float value = 0;
@@ -139,6 +116,8 @@ public class Ai {
             return new Pair<Direction, Float> (null, value);
 
         }
+
+        return null;
 
     }
 
