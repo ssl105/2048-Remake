@@ -39,7 +39,7 @@ public class Ai {
                 if (this.board.canMove(MOVES[i])) {
                     // move the board and add child
                     this.board.move(MOVES[i]);
-                    TreeNode curr = new TreeNode(board.getState(), CHANCE_PLAYER);
+                    TreeNode curr = new TreeNode(this.board.getState(), CHANCE_PLAYER);
                     node.children.add(new Pair<Direction, TreeNode> (MOVES[i], curr));
 
                 } else {

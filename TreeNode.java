@@ -10,6 +10,8 @@ public class TreeNode {
     public TreeNode(Pair<int[][], Integer> state, int playerType) {
         this.state = state;
         this.playerType = playerType;
+
+        children = new ArrayList<Pair<Direction, TreeNode>> ();
     }
 
     boolean isTerminal() {

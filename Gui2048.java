@@ -45,7 +45,7 @@ public class Gui2048 extends Application
     private int gridSize;  //size of the grid
     private StackPane gameOver; //pane for when the game is over
     private boolean gameIsOver; //boolean indicating if game is over
-    private boolean autoSolve; //boolean indicating if auto solver is on
+    private boolean autoSolve = false; //boolean indicating if auto solver is on
 
 
     @Override
@@ -105,21 +105,6 @@ public class Gui2048 extends Application
         
         //take in keys for controls
         scene.setOnKeyPressed(new myKeyHandler());
-
-        //handle ai
-        if (autoSolve) {
-            Ai ai = new Ai(this.board.getState(), 3);
-            Direction move = ai.computeDecision();
-            this.board.move(move);
-
-            //gameover conditional
-            if (Gui2048.this.board.isGameOver()) {
-                Gui2048.this.pane.add(Gui2048.this.gameOver, 0, 0,
-                        Gui2048.this.gridSize, 
-                        Gui2048.this.gridSize +1); 
-                Gui2048.this.gameIsOver = true;
-            }
-        }
 
     }
 
@@ -276,15 +261,6 @@ public class Gui2048 extends Application
             //don't KeyEvents if the game is over
             if (Gui2048.this.gameIsOver) {
                 return;
-            } 
-
-            // only handle enter key when auto solve is on
-            if (this.autoSolve) {
-                if (e.getCode() == KeyCode.ENTER) {
-                    this.autoSolve = false;
-                }
-
-                return;
             }
 
 
@@ -385,7 +361,26 @@ public class Gui2048 extends Application
                 } 
             }
             else if (e.getCode() == KeyCode.ENTER) {
-                this.autoSolve = true;
+                //handle ai
+                Ai ai = new Ai(Gui2048.this.board.getState(), 3);
+                Direction move = ai.computeDecision();
+                Gui2048.this.board.move(move);
+
+                //updating board and score and indicate the move
+                Gui2048.this.board.addRandomTile();
+                System.out.println("Auto Solve");
+                Gui2048.this.updateTiles();
+                Gui2048.this.value = Gui2048.this.board.getScore();
+                Gui2048.this.score.setText("Score:" 
+                                                       + value.toString());
+
+                //gameover conditional
+                if (Gui2048.this.board.isGameOver()) {
+                    Gui2048.this.pane.add(Gui2048.this.gameOver, 0, 0,
+                            Gui2048.this.gridSize, 
+                            Gui2048.this.gridSize +1); 
+                    Gui2048.this.gameIsOver = true;
+                }
             }
             
         }
