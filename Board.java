@@ -48,10 +48,10 @@ public class Board {
 
 
     // Constructs a board based on a state 
-    public Board(State state) {
+    public Board(Random random, Pair<int[][], Integer> state) {
         this.random = random;
-        this.grid = state.getGrid();
-        this.score = state.getScore();
+        this.grid = state.getKey();
+        this.score = state.getValue();
         GRID_SIZE = this.grid[0].length;
 
     }
@@ -562,6 +562,26 @@ public class Board {
         }
     }
 
+    // resets the grid and score to the given state
+    public void reset(Pair<int [][], Integer> state) {
+        this.grid = state.getKey();
+        this.score = state.getValue();
+    }
+
+    // get list of open spaces
+    public ArrayList<Pair<Integer, Integer>> getOpenTiles() {
+        ArrayList<Pair<Integer, Integer>> openTiles = new ArrayList<Pair<Integer,Integer>>();
+        
+        for (int r = 0; r < GRID_SIZE; r++) {
+            for (int c = 0; c < GRID_SIZE; c++) {
+                if (this.grid[r][c] == 0) {
+                    openTiles.add(new Pair<Integer, Integer> (r, c));
+                }
+            }
+        }
+
+        return openTiles;
+    }
 
     // Return the reference to the 2048 Grid
     public int[][] getGrid() {
