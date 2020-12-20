@@ -36,15 +36,11 @@ public class Ai {
             for (int i = 0; i < MOVES.length; i++) {
                 this.board.reset(node.state);
 
-                if (this.board.canMove(MOVES[i])) {
+                if (this.board.move(MOVES[i])) {
                     // move the board and add child
-                    this.board.move(MOVES[i]);
                     TreeNode curr = new TreeNode(this.board.getState(), CHANCE_PLAYER);
                     node.children.add(new Pair<Direction, TreeNode> (MOVES[i], curr));
 
-                } else {
-                    // check next move
-                    continue;
                 }
 
             }
@@ -59,7 +55,7 @@ public class Ai {
             for (int i = 0; i < tiles.size(); i++ ) {
                 Pair<Integer, Integer> tile = tiles.get(i);
                 this.board.addTile(tile.getKey(), tile.getValue(), 2);
-                TreeNode curr = new TreeNode(board.getState(), MAX_PLAYER);
+                TreeNode curr = new TreeNode(this.board.getState(), MAX_PLAYER);
                 node.children.add(new Pair<Direction, TreeNode> (null, curr));
                 this.board.addTile(tile.getKey(), tile.getValue(), 0);
             }
@@ -102,7 +98,6 @@ public class Ai {
 
             return new Pair<Direction, Float> (currD, value);
 
-
         }
         // chance player
         else if (node.playerType == CHANCE_PLAYER) {
@@ -118,6 +113,7 @@ public class Ai {
         }
 
         return null;
+
 
     }
 

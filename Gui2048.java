@@ -290,6 +290,7 @@ public class Gui2048 extends Application
             } 
             else if (e.getCode() == KeyCode.RIGHT) {
                 if (Gui2048.this.board.move(Direction.RIGHT)) {
+                    System.out.println(Gui2048.this.board.getState().getValue());
                     //updating board and score and indicate the move
                     Gui2048.this.board.addRandomTile();
                     System.out.println("Moving Right");
@@ -332,6 +333,7 @@ public class Gui2048 extends Application
             }
             else if (e.getCode() == KeyCode.DOWN) {
                 if (Gui2048.this.board.move(Direction.DOWN)) {
+                    System.out.println(Gui2048.this.board.getState().getValue());
                     //updating board and score and indicate the move
                     Gui2048.this.board.addRandomTile();
                     System.out.println("Moving Down");
@@ -364,22 +366,27 @@ public class Gui2048 extends Application
                 //handle ai
                 Ai ai = new Ai(Gui2048.this.board.getState(), 3);
                 Direction move = ai.computeDecision();
-                Gui2048.this.board.move(move);
+                if (move == null) {
+                    System.out.println("null");
+                    return;
+                }
+                if (Gui2048.this.board.move(move)) {
+                    //updating board and score and indicate the move
+                    Gui2048.this.board.addRandomTile();
+                    System.out.println("Auto Solve");
+                    Gui2048.this.updateTiles();
+                    Gui2048.this.value = Gui2048.this.board.getScore();
+                    Gui2048.this.score.setText("Score:" 
+                                                        + value.toString());
 
-                //updating board and score and indicate the move
-                Gui2048.this.board.addRandomTile();
-                System.out.println("Auto Solve");
-                Gui2048.this.updateTiles();
-                Gui2048.this.value = Gui2048.this.board.getScore();
-                Gui2048.this.score.setText("Score:" 
-                                                       + value.toString());
 
-                //gameover conditional
-                if (Gui2048.this.board.isGameOver()) {
-                    Gui2048.this.pane.add(Gui2048.this.gameOver, 0, 0,
+                    //gameover conditional
+                    if (Gui2048.this.board.isGameOver()) {
+                        Gui2048.this.pane.add(Gui2048.this.gameOver, 0, 0,
                             Gui2048.this.gridSize, 
                             Gui2048.this.gridSize +1); 
-                    Gui2048.this.gameIsOver = true;
+                        Gui2048.this.gameIsOver = true;
+                    }
                 }
             }
             

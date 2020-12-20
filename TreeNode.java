@@ -8,7 +8,7 @@ public class TreeNode {
     ArrayList<Pair<Direction, TreeNode>> children;
 
     public TreeNode(Pair<int[][], Integer> state, int playerType) {
-        this.state = state;
+        this.state = new Pair<int[][], Integer>(state.getKey(), state.getValue());
         this.playerType = playerType;
 
         children = new ArrayList<Pair<Direction, TreeNode>> ();
