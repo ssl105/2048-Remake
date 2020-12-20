@@ -21,31 +21,10 @@
  * and then the column: grid[row][column]
  */
 
+import javafx.util.Pair;
 import java.util.*;
 import java.io.*;
 
-
-/**
- * classname: State
- * Represents a simplified version of the board
- */
-public class State{
-    private int [][] grid;
-    private int score;
-
-    public State(int[][] grid, int score) {
-        this.grid = grid;
-        this.score = score;
-    }
-
-    public int [][] getGrid() {
-        return this.grid;
-    }
-
-    public int getScore() {
-        return this.score;
-    }
-}
 
 /**
  * classname: Board
@@ -595,8 +574,8 @@ public class Board {
     }
 
     // Return a simplfied version the 2048 board
-    public State getState() {
-        return State(getGrid(), getState());
+    public Pair<int [][], Integer> getState() {
+        return new Pair<int [][], Integer>(this.getGrid(), this.getScore());
     }
 
     //@Override
