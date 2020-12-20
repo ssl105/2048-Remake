@@ -119,6 +119,12 @@ public class Board {
 
     }
 
+    // add a tile at a specific location to the board
+    public void addTile(int r, int c, int v) {
+        this.grid[r][c] = v;
+    }
+
+
 
     // Adds a random tile (of value 2 or 4) to a
     // random empty space on the board
