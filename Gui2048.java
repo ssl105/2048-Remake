@@ -108,7 +108,17 @@ public class Gui2048 extends Application
 
         //handle ai
         if (autoSolve) {
-            
+            Ai ai = new Ai(this.board.getState(), 3);
+            Direction move = ai.computeDecision();
+            this.board.move(move);
+
+            //gameover conditional
+            if (Gui2048.this.board.isGameOver()) {
+                Gui2048.this.pane.add(Gui2048.this.gameOver, 0, 0,
+                        Gui2048.this.gridSize, 
+                        Gui2048.this.gridSize +1); 
+                Gui2048.this.gameIsOver = true;
+            }
         }
 
     }
