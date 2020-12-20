@@ -574,7 +574,9 @@ public class Board {
 
     // resets the grid and score to the given state
     public void reset(Pair<int [][], Integer> state) {
-        this.grid = state.getKey();
+        for (int i = 0; i < state.getKey().length; i++) {
+            this.grid[i] = state.getKey()[i].clone();
+        }
         this.score = state.getValue();
     }
 

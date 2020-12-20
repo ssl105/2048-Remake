@@ -29,7 +29,6 @@ public class Ai {
         }
 
 
-
         // max player
         if (node.playerType == MAX_PLAYER) {
             // find all children from all possible moves.

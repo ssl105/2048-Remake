@@ -364,10 +364,6 @@ public class Gui2048 extends Application
                 //handle ai
                 Ai ai = new Ai(Gui2048.this.board.getState(), 3);
                 Direction move = ai.computeDecision();
-                if (move == null) {
-                    System.out.println("null");
-                    return;
-                }
                 if (Gui2048.this.board.move(move)) {
                     //updating board and score and indicate the move
                     Gui2048.this.board.addRandomTile();
