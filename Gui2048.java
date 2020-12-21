@@ -370,7 +370,6 @@ public class Gui2048 extends Application
                     System.out.println("Auto Move");
                     Gui2048.this.updateTiles();
                     Gui2048.this.value = Gui2048.this.board.getScore();
-                    System.out.println(Gui2048.this.board.getScore());
                     Gui2048.this.score.setText("Score:" 
                                                         + value.toString());
 
