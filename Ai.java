@@ -77,7 +77,9 @@ public class Ai {
 
         // terminal node
         if (node.isTerminal()) {
-            return new Pair<Direction, Float> (null, (float) node.state.getValue());
+            float val = (float) node.state.getValue() - this.evaluate(node);
+
+            return new Pair<Direction, Float> (null, val);
         }
         // max player
         else if (node.playerType == MAX_PLAYER) {
@@ -116,6 +118,30 @@ public class Ai {
 
     }
 
+    // evaluate the state of the board to prioritize higher scoring tiles
+    // positioned to the bottom right
+    // value returned is larger if heavy weighted pieces are further
+    // from the bottom right
+    public int evaluate(TreeNode node) {
+        int value = 0;
+        int boardlen = node.state.getKey().length;
+
+        // go through the board
+        for (int i = 0; i < boardlen; i++) {
+            for (int j = 0; j < boardlen; j++) {
+                tileVal = node.state.getKey()[i][j];
+
+                if (tileVal != 0) {
+                    value = value + ((boardlen - i) + (boardlen -j)) * tileVal;
+                }
+            }
+        }
+
+        return value;
+
+    }
+
+    // find the best move using expectimax tree search algorithm
     public Direction computeDecision() {
         this.buildTree(this.root, 0);
         Pair<Direction, Float> result = this.expectimax(this.root);
