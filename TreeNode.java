@@ -43,7 +43,7 @@ public class TreeNode {
                 int tileVal = tile[i][j];
 
                 if (tileVal != 0) {
-                    value = ((boardlen - i) + (boardlen -j)) * (tileVal/2) + value;
+                    value = ((boardlen - i) + (boardlen -j)) * tileVal + value;
                 }
             }
         }
