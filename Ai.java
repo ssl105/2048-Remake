@@ -129,7 +129,7 @@ public class Ai {
         // go through the board
         for (int i = 0; i < boardlen; i++) {
             for (int j = 0; j < boardlen; j++) {
-                tileVal = node.state.getKey()[i][j];
+                int tileVal = node.state.getKey()[i][j];
 
                 if (tileVal != 0) {
                     value = value + ((boardlen - i) + (boardlen -j)) * tileVal;
